@@ -1,0 +1,129 @@
+anonymous variables
+- these are declared by using '_'
+
+EXAMPLE:
+contains(X, L) :- append(_[X|_], L).
+
+| ?- contains(1,[1,2,3]).
+yes
+
+
+append
+- append(L1, L2, Output) appends list L1 to list L2 resulting in 'Output'
+- 'append' is also useful for decomposing lists & finding precursors/successors
+
+EXAMPLES:
+| ?- append([1,2,3], [a,b,c], L).
+
+L = [1,2,3,a,b,c] ?
+
+| ?- append(L1, L2, [1,2,3]).
+
+L1 = [],
+ L2 = [1,2,3] ? ;
+
+L1 = [1], 
+L2 = [2,3] ? ;
+
+L1 = [1,2], 
+L2 = [3] ? ;
+
+L1 = [1,2,3], 
+L2 = [] ? ;
+
+no
+
+| ?- append(Lower, [3|Higher], [1,2,3,4,5,6]).
+Lower = [1,2], 
+Higher = [4,5,6] ?
+
+| ?- append(_,[Pre,2,Succ|_],[1,2,3,4,5]).
+
+Pre = 1,
+Succ = 3 ?
+
+| ?- Input = [a,b,c,c,d], append(Output, [c,c|_], Input).
+
+Input = [a,b,c,c,d],
+Output = [a,b] ?
+
+
+conjunction/disjunction
+- commas between goals indicate AND
+- semicons between goals indicate OR
+
+EXAMPLES:
+| ?- X is 5, X is 4. 
+no
+
+| ?- X is 5; X is 4.
+
+X = 5 ? ;
+
+X = 4 ? ;
+
+no
+
+
+data structures
+- structures are constructed by functors
+- each functor is defined by its name and arity (amout of arguments)
+- the lexical scope of structures is one clause
+
+EXAMPLE:
+make_date(D,M,Y,date(D,M,Y)).
+get_year(date(_,_,Y),Y).
+| ?- make_date(3,10,1985,Date), get_year(Date, Year).
+Date = date(3,10,1985),
+
+Year = 1985 ? ;
+no
+
+
+delete
+- delete(L, X, Output) deletes all occurences of X resulting in Output
+
+EXAMPLES:
+| ?- use_module(library(lists)).
+| ?- delete([1,2,2,3],2,Output).
+
+Output = [1,3] ?
+
+
+
+
+lists
+- each list is a binary tree & has the empty list as its final tail
+- .(x,.(y,.(z,[]))) creates a list [x,y,z] (original notation)
+- [x,y,z] creates a list [x,y,z] (simplified notation)
+- [H|T] splits a given list into its first element (head) & tail
+- [H1,H2|T] splits a list into first two elements (head) & tail
+- [X|L] also adds an item 'X' to a list 'L'
+
+
+EXAMPLES:
+| ?- L = .(marty, .(doc_brown,.(biff, []))).
+
+L = [marty,doc_brown,biff] ? 
+
+| ?- [H|T] = [marty, doc_brown, biff].
+
+H = marty,
+ T = [doc_brown,biff] ?
+
+| ?- [Hero1, Hero2|Tail] = .(marty, .(doc_brown,.(biff, []))).                   Tail = [biff],
+ Hero1 = marty,
+ Hero2 = doc_brown ?
+
+| ?- L = [1|[2,3]].
+
+L = [1,2,3] ?
+
+
+member
+- member(X, L) checks if element X occurs in the list L
+
+EXAMPLE:
+| ?- member(biff, [marty, doc_brown, biff]).
+yes
+
