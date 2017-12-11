@@ -48,6 +48,43 @@ Input = [a,b,c,c,d],
 Output = [a,b] ?
 
 
+arithmetics
+- f(x,y) applies the functor f to the arguments x & y (original notation)
+- 'x f y' applies the infix-operator f to x & y (simplified notation)
+- 'is' operates like equal-sign & forces evaluation (like comparisons). All variables on the right-hand side must be instantiated before execution
+- '=:=' & '=\=' checks for equality respectively inequality
+
+EXAMPLES:
+| ?- 5 is +(2,3).
+
+yes
+
+
+| ?- X is 3/2.
+
+X = 1.5 ?
+yes
+
+| ?- X is 3//2.
+
+X = 1 ?
+yes
+
+| ?- 3 > 2.
+
+yes
+
+
+| ?- 1 =:= 1.
+
+yes
+
+
+| ?- 1 =\= 1.
+
+no
+
+
 conjunction/disjunction
 - commas between goals indicate AND
 - semicons between goals indicate OR
@@ -99,6 +136,7 @@ lists
 - [H|T] splits a given list into its first element (head) & tail
 - [H1,H2|T] splits a list into first two elements (head) & tail
 - [X|L] also adds an item 'X' to a list 'L'
+- use_module(library(lists)). imports the list-library containts ia. delete(L, X, Output)
 
 
 EXAMPLES:
@@ -119,6 +157,11 @@ H = marty,
 
 L = [1,2,3] ?
 
+| ?- use_module(library(lists)).
+| ?- length([1,2,3],X).
+
+X = 3 ?
+
 
 member
 - member(X, L) checks if element X occurs in the list L
@@ -127,3 +170,20 @@ EXAMPLE:
 | ?- member(biff, [marty, doc_brown, biff]).
 yes
 
+
+op
+- op(precedence, type, name) (re-)defines an operator
+- precedence: between 1 & 1200; the higher the number, the greater the precedence
+- type: fx, fy (prefix) / xfx, xfy, yfx (infix) / xf, yf (postfix)
+- name: an atom, eg. 'has' or '+'
+- yfx: evaluation is carried out from from left to right, eg. +, -, * & / are defined as yfx
+
+EXAMPLE:
+:- op(600, xfx, likes).
+likes(X,Y) :- display(Y).
+
+| ?- marty likes guitars.
+
+guitars
+
+yes
