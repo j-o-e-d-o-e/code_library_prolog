@@ -1,0 +1,243 @@
+atoms
+- either begin with lower-case character
+- or are enclosed in single quotes (strings)
+- if written in double quotes, they are converted to characters codes
+
+EXAMPLE:
+| ?- write('Hello.').       
+Hello.
+yes
+| ?- write("Hello.").       
+[72,101,108,108,111,46]
+yes
+
+
+append
+- append(L1, L2, Output) appends two lists L1 & L2
+- useful for decomposing lists & finding elements
+
+EXAMPLES:
+| ?- append([1,2,3], [a,b,c], L).
+L = [1,2,3,a,b,c] ?
+| ?- append(Lower, [3|Higher], [1,2,3,4,5,6]).
+Lower = [1,2], Higher = [4,5,6] ?
+| ?- append(_, [PRE, 3, POST|_],[m, y, 3, b, f]).
+PRE = y, POST = b ?
+| ?- Input = [a,b,c,c,d], append(Output, [c,c|_], Input).
+Input = [a,b,c,c,d], Output = [a,b] ?
+
+
+associations
+- lists containing key-value-pairs
+- empty tree is represented by the atom t
+- inner nodes are represented as compound terms
+
+EXAMPLE:
+| ?- use_module(library(assoc)).
+| ?- L = [1-[alfred], 2-[berta], 3-[conny]], list_to_assoc(L, A), get_assoc(2,A,V).
+A = assoc(2,[berta],assoc(1,[alfred],assoc,assoc),assoc(3,[conny],assoc,assoc)),
+L = [1-[alfred],2-[berta],3-[conny]],
+V = [berta] ? 
+yes
+
+
+comparisons
+- '==' succeeds if two terms are identical
+- '\==' succeeds if two terms are different
+
+EXAMPLE:
+| ?- a == a.  
+yes
+| ?- a == 'a'.
+yes
+| ?- a \== a.  
+no
+| ?- X = a, X == a.
+X = a ? yes
+
+
+conjunction/disjunction
+- comma connects goals by logical AND
+- semicolon connects goals by logical OR
+
+EXAMPLES:
+| ?- X is 5, X is 4. 
+no
+| ?- X is 5; X is 4.
+X = 5 ? ;
+X = 4 ? ; no
+
+
+consult
+- consult(user). lets prolog accept a program directly from the terminal
+- [filename]. consults a file (shortcut)
+
+
+cut
+- declared by exclamation mark !
+- prevents futile backtracking
+- if clause fails before its cut was reached, ! has no effect
+- useful if rules are mutually exclusive (like  if-else-statements)
+- cut commits system to all choices made due to prior goals in the same clause
+- as for goals after the cut in the same clause, backtracking will still be possible
+- if ! is reached, any attempt to match with head of another clause is omitted
+- cut is often used in combination with 'fail'. instead not(X) can often be used
+
+EXAMPLE:
+max(X, Y, X) :- X >= Y, !.
+max(X, Y, Y).
+| ?- max(3, 4, X).
+X = 4 ?
+
+
+data structures
+- constructed by functors
+- a functor is defined by its name and arity (amount of arguments)
+- the lexical scope of structures is one clause
+
+EXAMPLE:
+make_date(D,M,Y,date(D,M,Y)).
+get_year(date(_,_,Y),Y).
+| ?- make_date(3,10,1985,Date), get_year(Date, Year).
+Date = date(3,10,1985), Year = 1985 ?
+
+
+delete
+- delete(L, X, Output) deletes all occurences of X in L
+
+EXAMPLE:
+| ?- use_module(library(lists)).
+| ?- delete([1,2,2,3], 2, Output).
+Output = [1,3] ? yes
+
+
+fail/true
+- fail always fails, thus forcing its parent-goal to fail
+- true always succeeds
+
+EXAMPLE:
+different(X, Y) :- X =:= Y, !, fail; true.
+| ?- different(2,3).
+yes
+| ?- different(2,2).
+no
+
+
+imports
+- :- use_module(library(lists)).
+- :- use_module(library(clpfd)).
+- more: https://sicstus.sics.se/sicstus/docs/4.2.3/html/sicstus/The-Prolog-Library.html
+
+
+input/output
+- repeat starts loop which ends if cut is reached
+- get_char(Stream, Char) gets one character at a time from stream
+- read(X) reads prolog terms from the current input stream. Each term must be followed by a full stop
+- at_end_of_stream(Stream) checks if stream has reached its end
+- write(X) outputs a prolog term
+- display(X) displays an atom/expression
+- nl causes the start of a new line
+
+EXAMPLE:
+print_file(File) :-
+    open(File, read, Stream),
+    repeat,
+        get_char(Stream, Char),
+        display(Char),
+        at_end_of_stream(Stream),
+        !,
+    close(Stream).
+
+
+length
+- length(L, N) counts the length of list L
+
+EXAMPLE:
+| ?- use_module(library(lists)).
+| ?- length([1,2,3],X).
+X = 3 ? yes
+
+
+lists
+- binary trees with an empty list [] as final element
+- .(x,.(y,.(z,[]))) creates a list [x,y,z] (original notation)
+- [x,y,z] does the same (simplified notation)
+- [H|T] splits a given list into its first element (head) & tail
+- [H1, H2|T] splits a list into first two elements (head) & tail
+- [X|L] can also add an item X to list L
+
+EXAMPLES:
+| ?- L = .(marty, .(doc_brown,.(biff, []))).
+L = [marty,doc_brown,biff] ?
+| ?- [H|T] = [marty, doc_brown, biff].
+H = marty, T = [doc_brown,biff] ?
+| ?- [Hero1, Hero2|Tail] = .(marty, .(doc_brown,.(biff, []))).
+Tail = [biff], Hero1 = marty, Hero2 = doc_brown ?
+| ?- L = [1|[2,3]].
+L = [1,2,3] ?
+
+
+member
+- member(X, L) checks if element X occurs in list L
+
+EXAMPLE:
+| ?- member(biff, [marty, doc_brown, biff]).
+yes
+
+
+not
+- not(X) is true if X is not true
+
+EXAMPLE:
+not(X) :- X, !, fail; true.
+:- op(600, xfx, likes).
+likes(marty, X) :- not(X == chicken).
+| ?- marty likes guitars.
+yes
+| ?- marty likes chicken.
+no
+
+
+numbers
+- f(x,y) applies functor f to x & y (original notation)
+- 'x f y' applies infix-operator f to x & y (simplified notation)
+- 'is' operates like equal-sign & forces evaluation (like comparisons)
+- as for 'is' & comparison operators, variables on right-hand side must be instantiated before execution
+
+EXAMPLES:
+| ?- 5 is +(2,3).
+yes
+| ?- X is 3/2.
+X = 1.5 ?
+| ?- X is 3//2.
+X = 1 ?
+| ?- 3 > 2.
+yes
+| ?- 1 == 1.
+yes
+| ?- 1 \== 1.
+no
+
+
+op
+- op(precedence, type, name) (re-)defines operator
+- precedence: between 1 & 1200 (the higher the number, the greater the precedence)
+- type: fx, fy (prefix) / xfx, xfy, yfx (infix) / xf, yf (postfix)
+- name: an atom, eg. 'has' or '+'
+- yfx means evaluation is carried out from from left to right (eg. +, -, *, /)
+
+EXAMPLE:
+:- op(600, xfx, likes).
+likes(X,Y) :- display(Y).
+| ?- marty likes guitars.
+guitars
+
+
+variables
+- begin with upper case letter or an underscore
+- lexical scope is always local
+- anonymous variables are declared by underscore _
+
+EXAMPLE:
+| ?- [_, X, _] = [1, 2, 3].          
+X = 2 ?
