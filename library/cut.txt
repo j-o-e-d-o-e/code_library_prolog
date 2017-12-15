@@ -1,0 +1,15 @@
+cut
+- declared by exclamation mark !
+- prevents futile backtracking
+- if clause fails before its cut was reached, ! has no effect
+- useful if rules are mutually exclusive (like  if-else-statements)
+- cut commits system to all choices made due to prior goals in the same clause
+- as for goals after the cut in the same clause, backtracking will still be possible
+- if ! is reached, any attempt to match with head of another clause is omitted
+- cut is often used in combination with 'fail'. instead not(X) can often be used
+
+EXAMPLE:
+max(X, Y, X) :- X >= Y, !.
+max(X, Y, Y).
+| ?- max(3, 4, X).
+X = 4 ?

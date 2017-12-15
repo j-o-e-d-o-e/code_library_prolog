@@ -1,0 +1,8 @@
+variables
+- begin with upper case letter or an underscore
+- lexical scope is always local
+- anonymous variables are declared by underscore _
+
+EXAMPLE:
+| ?- [_, X, _] = [1, 2, 3].          
+X = 2 ?

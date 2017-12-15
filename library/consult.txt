@@ -1,0 +1,3 @@
+consult
+- consult(user). lets prolog accept a program directly from the terminal
+- [filename]. consults a file (shortcut)

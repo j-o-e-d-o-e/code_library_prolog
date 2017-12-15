@@ -1,0 +1,10 @@
+conjunction/disjunction
+- comma connects goals by logical AND
+- semicolon connects goals by logical OR
+
+EXAMPLES:
+| ?- X is 5, X is 4. 
+no
+| ?- X is 5; X is 4.
+X = 5 ? ;
+X = 4 ? ; no

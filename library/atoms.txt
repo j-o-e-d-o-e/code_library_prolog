@@ -1,0 +1,9 @@
+atoms
+- either begin with lower-case character
+- or are enclosed in single quotes (strings)
+- if written in double quotes, they are converted to characters codes
+
+EXAMPLE:
+| ?- write('Hello.').       
+Hello.
+yes

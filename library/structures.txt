@@ -1,0 +1,10 @@
+data structures
+- constructed by functors
+- a functor is defined by its name and arity (amount of arguments)
+- the lexical scope of structures is one clause
+
+EXAMPLE:
+make_date(D,M,Y,date(D,M,Y)).
+get_year(date(_,_,Y),Y).
+| ?- make_date(3,10,1985,Date), get_year(Date, Year).
+Date = date(3,10,1985), Year = 1985 ?

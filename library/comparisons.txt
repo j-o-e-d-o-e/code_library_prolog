@@ -1,0 +1,13 @@
+comparisons
+- '==' succeeds if two terms are identical
+- '\==' succeeds if two terms are different
+
+EXAMPLE:
+| ?- a == a.  
+yes
+| ?- a == 'a'.
+yes
+| ?- a \== a.  
+no
+| ?- X = a, X == a.
+X = a ? yes

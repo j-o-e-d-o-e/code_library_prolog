@@ -1,0 +1,3 @@
+fail/true
+- fail always fails, thus forcing its parent-goal to fail
+- true always succeeds

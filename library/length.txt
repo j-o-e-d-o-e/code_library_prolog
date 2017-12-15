@@ -1,0 +1,7 @@
+length
+- length(L, N) counts the length of list L
+
+EXAMPLE:
+| ?- use_module(library(lists)).
+| ?- length([1,2,3],X).
+X = 3 ? yes

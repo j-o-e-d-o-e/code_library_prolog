@@ -1,0 +1,6 @@
+member
+- member(X, L) checks if element X occurs in list L
+
+EXAMPLE:
+| ?- member(biff, [marty, doc_brown, biff]).
+yes

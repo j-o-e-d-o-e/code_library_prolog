@@ -1,0 +1,18 @@
+input/output
+- repeat starts loop which ends if cut is reached
+- get_char(Stream, Char) gets one character at a time from stream
+- read(X) reads prolog terms from the current input stream. Each term must be followed by a full stop
+- at_end_of_stream(Stream) checks if stream has reached its end
+- write(X) outputs a prolog term
+- display(X) displays an atom/expression
+- nl causes the start of a new line
+
+EXAMPLE:
+print_file(File) :-
+    open(File, read, Stream),
+    repeat,
+        get_char(Stream, Char),
+        display(Char),
+        at_end_of_stream(Stream),
+        !,
+    close(Stream).

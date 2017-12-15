@@ -1,0 +1,4 @@
+imports
+- :- use_module(library(lists)).
+- :- use_module(library(clpfd)).
+- more: https://sicstus.sics.se/sicstus/docs/4.2.3/html/sicstus/The-Prolog-Library.html

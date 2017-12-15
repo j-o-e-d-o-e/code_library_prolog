@@ -1,0 +1,12 @@
+op
+- op(precedence, type, name) (re-)defines operator
+- precedence: between 1 & 1200 (the higher the number, the greater the precedence)
+- type: fx, fy (prefix) / xfx, xfy, yfx (infix) / xf, yf (postfix)
+- name: an atom, eg. 'has' or '+'
+- yfx means evaluation is carried out from from left to right (eg. +, -, *, /)
+
+EXAMPLE:
+:- op(600, xfx, likes).
+likes(X,Y) :- display(Y).
+| ?- marty likes guitars.
+guitars

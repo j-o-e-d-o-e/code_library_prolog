@@ -1,0 +1,19 @@
+numbers
+- f(x,y) applies functor f to x & y (original notation)
+- 'x f y' applies infix-operator f to x & y (simplified notation)
+- 'is' operates like equal-sign & forces evaluation (like comparisons)
+- as for 'is' & comparison operators, variables on right-hand side must be instantiated before execution
+
+EXAMPLES:
+| ?- 5 is +(2,3).
+yes
+| ?- X is 3/2.
+X = 1.5 ?
+| ?- X is 3//2.
+X = 1 ?
+| ?- 3 > 2.
+yes
+| ?- 1 == 1.
+yes
+| ?- 1 \== 1.
+no

@@ -1,4 +1,18 @@
-atoms
+main :-
+    input(toc), nl,
+    loop.
+    
+loop :- 
+    write("\nWhat would you like to read? "),
+    read(X),
+    nl, input(X), nl,
+    loop.
+
+input(toc) :- write("--CODE LIBRARY PROLOG--
+   - atoms
+   - append").
+
+input(atoms) :- write("atoms
 - either begin with lower-case character
 - or are enclosed in single quotes (strings)
 - if written in double quotes, they are converted to characters codes
@@ -6,13 +20,10 @@ atoms
 EXAMPLE:
 | ?- write('Hello.').       
 Hello.
-yes
-| ?- write("Hello.").       
-[72,101,108,108,111,46]
-yes
+yes").
 
 
-append
+input(append) :- write("append
 - append(L1, L2, Output) appends two lists L1 & L2
 - useful for decomposing lists & finding elements
 
@@ -24,4 +35,8 @@ Lower = [1,2], Higher = [4,5,6] ?
 | ?- append(_, [PRE, 3, POST|_],[m, y, 3, b, f]).
 PRE = y, POST = b ?
 | ?- Input = [a,b,c,c,d], append(Output, [c,c|_], Input).
-Input = [a,b,c,c,d], Output = [a,b] ?
+Input = [a,b,c,c,d], Output = [a,b] ?").
+
+input(_) :-
+    write("No matching entry. Please try again."), nl,
+    loop.

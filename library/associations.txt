@@ -1,0 +1,12 @@
+associations
+- lists containing key-value-pairs
+- empty tree is represented by the atom t
+- inner nodes are represented as compound terms
+
+EXAMPLE:
+| ?- use_module(library(assoc)).
+| ?- L = [1-[alfred], 2-[berta], 3-[conny]], list_to_assoc(L, A), get_assoc(2,A,V).
+A = assoc(2,[berta],assoc(1,[alfred],assoc,assoc),assoc(3,[conny],assoc,assoc)),
+L = [1-[alfred],2-[berta],3-[conny]],
+V = [berta] ? 
+yes

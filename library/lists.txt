@@ -1,0 +1,17 @@
+lists
+- binary trees with an empty list [] as final element
+- .(x,.(y,.(z,[]))) creates a list [x,y,z] (original notation)
+- [x,y,z] does the same (simplified notation)
+- [H|T] splits a given list into its first element (head) & tail
+- [H1, H2|T] splits a list into first two elements (head) & tail
+- [X|L] can also add an item X to list L
+
+EXAMPLES:
+| ?- L = .(marty, .(doc_brown,.(biff, []))).
+L = [marty,doc_brown,biff] ?
+| ?- [H|T] = [marty, doc_brown, biff].
+H = marty, T = [doc_brown,biff] ?
+| ?- [Hero1, Hero2|Tail] = .(marty, .(doc_brown,.(biff, []))).
+Tail = [biff], Hero1 = marty, Hero2 = doc_brown ?
+| ?- L = [1|[2,3]].
+L = [1,2,3] ?

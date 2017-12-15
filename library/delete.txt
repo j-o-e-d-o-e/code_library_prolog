@@ -1,0 +1,7 @@
+delete
+- delete(L, X, Output) deletes all occurences of X in L
+
+EXAMPLE:
+| ?- use_module(library(lists)).
+| ?- delete([1,2,2,3], 2, Output).
+Output = [1,3] ? yes
