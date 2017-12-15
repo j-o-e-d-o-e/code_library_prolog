@@ -1,15 +1,21 @@
 cut
-- declared by exclamation mark !
+- declared by exclamation mark
 - prevents futile backtracking
-- if clause fails before its cut was reached, ! has no effect
 - useful if rules are mutually exclusive (like  if-else-statements)
-- cut commits system to all choices made due to prior goals in the same clause
-- as for goals after the cut in the same clause, backtracking will still be possible
-- if ! is reached, any attempt to match with head of another clause is omitted
-- cut is often used in combination with 'fail'. instead not(X) can often be used
+- as a pseudo-goal cut succeeds immediately
+- cut commits system to all choices made since it has chosen the present rule
+- the system will not consider alternative solutions for these goals
+- the choice of the rule that the cut appears in is also bypassed on backtracking
+- goals after the cut can still be backtracked
+- cut is often used in combination with 'fail' (like 'not')
 
 EXAMPLE:
 max(X, Y, X) :- X >= Y, !.
 max(X, Y, Y).
 | ?- max(3, 4, X).
 X = 4 ?
+
+foo:- a, b, c, !, d, e, f.
+%backtracking possible as normal until success of c
+%then, backtracking can occur among d, e & f
+%if d fails, no backtracking & the entire rule fails

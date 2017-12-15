@@ -1,0 +1,14 @@
+equality
+- X==Y succeeds if X & Y are identical
+- X\==Y succeeds if X & Y are different
+- X=Y succeeds if X & Y unify. If both X & Y are uninstantiated variables, they share the same value. As soon as one is instantiated, so is the other.
+
+EXAMPLE:
+?- a == a.  
+yes
+?- a == 'a'.
+yes
+?- a \== a.  
+no
+?- X = a, X == a.
+X = a ? yes

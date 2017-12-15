@@ -3,6 +3,9 @@ numbers
 - 'x f y' applies infix-operator f to x & y (simplified notation)
 - 'is' operates like equal-sign & forces evaluation (like comparisons)
 - as for 'is' & comparison operators, variables on right-hand side must be instantiated before execution
+- X =:= Y succeeds if X & Y stand for the same number (alternatively, X == Y)
+- X =\= Y succeeds if X & Y stand for different numbers (alternatively, X \== Y)
+- note that X =< Y, Y >= Y
 
 EXAMPLES:
 | ?- 5 is +(2,3).
