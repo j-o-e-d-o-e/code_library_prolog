@@ -1,8 +1,12 @@
 variables
-- begin with upper case letter or an underscore
-- lexical scope is always local
-- anonymous variables are declared by underscore _
+- begin with upper case letter (or an underscore)
+- if not used, anonymous variables can be declared by underscore
+- lexical scope is local, but global constants can be used
 
-EXAMPLE:
-| ?- [_, X, _] = [1, 2, 3].          
+EXAMPLES:
+?- [_, X, _] = [1, 2, 3].          
 X = 2 ?
+
+constant(X) :- X = a.
+?- constant(X), write(X).
+a
