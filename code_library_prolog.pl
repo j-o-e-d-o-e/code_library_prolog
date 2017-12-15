@@ -1,16 +1,16 @@
 main :-
-    CWD = 'c:/users/joe/desktop/programming/prolog/code_library/library',
+    CWD = 'PATH_TO_LIBRARY',
     working_directory(_, CWD),
-    print_toc(CWD),
-    loop.
+    print_toc.
 
 loop :- 
     write("\nWhat would you like to read? "),
     read(Input),
     check_input(Input).
 
-print_toc(CWD) :-
-    nl, write("---CODE LIBRARY PROLOG---"),
+print_toc :-
+    write("---CODE LIBRARY PROLOG---"),
+    working_directory(CWD, CWD),
     directory_files(CWD, [_,_|Filenames]),
     print_titles(Filenames), nl,
     loop.
@@ -25,9 +25,7 @@ print_titles([Filename|Filenames]) :-
 
 check_input(end).
 
-check_input(toc) :-
-    working_directory(CWD, CWD),
-    print_toc(CWD).
+check_input(toc) :- nl, print_toc.
     
 check_input(Input) :-
     atom_concat(Input, '.txt', File),
