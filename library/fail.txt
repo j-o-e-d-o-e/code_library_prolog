@@ -1,3 +1,4 @@
 fail/true
-- fail always fails, thus forcing its parent-goal to fail
+- fail always fails
+- fail forces backtracking if not in conjunction with cut
 - true always succeeds

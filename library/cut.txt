@@ -1,18 +1,21 @@
 cut
 - declared by exclamation mark
 - prevents futile backtracking
-- useful if rules are mutually exclusive (like  if-else-statements)
 - as a pseudo-goal cut succeeds immediately
 - cut commits system to all choices made since it has chosen the present rule
 - the system will not consider alternative solutions for these goals
 - the choice of the rule that the cut appears in is also bypassed on backtracking
 - goals after the cut can still be backtracked
-- cut is often used in combination with 'fail' (like 'not')
+- useful if rules are mutually exclusive (like  if-else-statements)
+- useful in conjunction with 'fail' (like 'not')
+- useful for telling the system it picked the right rule
 
-EXAMPLE:
-max(X, Y, X) :- X >= Y, !.
-max(X, Y, Y).
-| ?- max(3, 4, X).
+EXAMPLES:
+%if X>=Y succeeds, the only solution is found
+%so, no need looking for alternatives
+max(X, Y, X) :- X >= Y, !. %if
+max(X, Y, Y). %else
+?- max(3, 4, X).
 X = 4 ?
 
 foo:- a, b, c, !, d, e, f.

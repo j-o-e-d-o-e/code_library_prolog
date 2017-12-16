@@ -1,11 +1,15 @@
-not
+not/'\+(X)'
 - not(X) is true if X is not true
+- similarly, '\+(X) succeeds if X fails
 
-EXAMPLE:
+EXAMPLES:
 not(X) :- X, !, fail; true.
 :- op(600, xfx, likes).
 likes(marty, X) :- not(X == chicken).
-| ?- marty likes guitars.
+?- marty likes guitars.
 yes
-| ?- marty likes chicken.
+?- marty likes chicken.
 no
+
+?- \+(true).
+false.
