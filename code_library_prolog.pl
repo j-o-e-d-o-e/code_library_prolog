@@ -23,7 +23,7 @@ print_titles([Filename|Filenames]) :-
     write(Title),
     print_titles(Filenames).
 
-check_input(end).
+check_input(end) :- halt.
 
 check_input(toc) :- nl, print_toc.
     
