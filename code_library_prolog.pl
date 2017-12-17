@@ -8,6 +8,19 @@ loop :-
     read(Input),
     check_input(Input).
 
+check_input(end) :- halt.
+
+check_input(toc) :- nl, print_toc.
+    
+check_input(Input) :-
+    atom_concat(Input, '.txt', File),
+    exists_file(File),
+    print_file(File).
+
+check_input(_) :-
+    write("\nNo matching entry. Please try again.\n"),
+    loop.
+
 print_toc :-
     write("---CODE LIBRARY PROLOG---"),
     working_directory(CWD, CWD),
@@ -23,20 +36,6 @@ print_titles([Filename|Filenames]) :-
     write(Title),
     print_titles(Filenames).
 
-check_input(end) :- halt.
-
-check_input(toc) :- nl, print_toc.
-    
-check_input(Input) :-
-    atom_concat(Input, '.txt', File),
-    exists_file(File),
-    print_file(File),
-    loop.
-
-check_input(_) :-
-    write("\nNo matching entry. Please try again.\n"),
-    loop.
-
 print_file(File) :-
     nl, open(File, read, Stream),
     repeat,
@@ -44,4 +43,5 @@ print_file(File) :-
         write(Char),
         at_end_of_stream(Stream),
         !,
-    close(Stream), nl.
+    close(Stream), nl,
+    loop.
