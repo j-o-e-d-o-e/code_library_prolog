@@ -1,5 +1,5 @@
 main :-
-    CWD = 'C:/Users/joe/Desktop/code_library_prolog-master/library',
+    CWD = 'PATH_TO_LIBRARY',
     working_directory(_, CWD),
     print_toc.
 
